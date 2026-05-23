@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.14)
+project(QueueSimulation CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+
+# ── Fetch FTXUI automatically (no manual install needed) ────────────────────
+include(FetchContent)
+FetchContent_Declare(
+    ftxui
+    GIT_REPOSITORY https://github.com/ArthurSonzogni/FTXUI
+    GIT_TAG        v5.0.0
+)
+FetchContent_MakeAvailable(ftxui)
+
+# ── Source files ────────────────────────────────────────────────────────────
+add_executable(queue_sim
+    main_gui.cpp
+    gui.cpp
+    customer.cpp
+    queue.cpp
+    server.cpp
+)
+
+target_include_directories(queue_sim PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_link_libraries(queue_sim
+    PRIVATE
+    ftxui::screen
+    ftxui::dom
+    ftxui::component
+)
